@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.Objects;
 
 public class AdjacenciesGenController {
     @FXML
@@ -19,6 +20,9 @@ public class AdjacenciesGenController {
 
     public AdjacenciesGenController() {
         this.dataManager = new DataManager();
+        this.bmpFile = null;
+        this.csvFile = null;
+
     }
 
     @FXML
@@ -31,11 +35,7 @@ public class AdjacenciesGenController {
         if (file != null) {
             this.bmpFile = file;
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText(null);
-            alert.setContentText("No image selected!");
-            alert.showAndWait();
+            this.showAlert(Alert.AlertType.WARNING, "Warning", "No image selected!");
         }
     }
 
@@ -49,21 +49,15 @@ public class AdjacenciesGenController {
         if (file != null) {
             this.csvFile = file;
         } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText(null);
-            alert.setContentText("No definitions file selected!");
-            alert.showAndWait();
+            this.showAlert(Alert.AlertType.WARNING, "Warning", "No file selected!");
         }
     }
 
     @FXML
     protected void onGenerateButtonClick() {
         if(this.bmpFile == null) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText(null);
-            alert.setContentText("No image selected!");
+            this.showAlert(Alert.AlertType.WARNING, "Warning", "No image selected!");
+            return;
         }
         try {
             if(this.csvFile == null) {
@@ -72,12 +66,19 @@ public class AdjacenciesGenController {
                 this.dataManager.setProvincesCollectionByDefinitionsCsv(this.csvFile);
             }
         } catch (Exception e) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.setHeaderText(null);
-            alert.setContentText("An error occurred while processing the image!");
+            this.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
         }
 
         this.numberProvinces.setText("Number of provinces : " + this.dataManager.getNumberProvinces());
     }
+
+    private void showAlert(Alert.AlertType type, String title, String message) {
+        Alert alert = new Alert(type);
+        alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/alert.css")).toExternalForm());
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }
