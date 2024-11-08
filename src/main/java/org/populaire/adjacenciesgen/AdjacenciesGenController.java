@@ -3,6 +3,7 @@ package org.populaire.adjacenciesgen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -11,8 +12,6 @@ import java.util.Objects;
 public class AdjacenciesGenController {
     @FXML
     private Label numberProvinces;
-    @FXML
-    private Label numberProvincesByAdjacenciesFind;
     private DataManager dataManager;
     private File bmpFile;
     private File csvFile;
@@ -26,6 +25,7 @@ public class AdjacenciesGenController {
 
     @FXML
     protected void onUploadBitmapButtonClick() {
+        this.dataManager.clear();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(("Image Files"), "*.bmp"));
 
@@ -58,19 +58,24 @@ public class AdjacenciesGenController {
             this.showAlert(Alert.AlertType.WARNING, "Warning", "No image selected!");
             return;
         }
-        try {
-            this.dataManager.readBitmapFile(this.bmpFile);
-            if(this.csvFile == null) {
-                this.dataManager.setProvincesCollectionByBitmap();
-            } else {
-                this.dataManager.setProvincesCollectionByDefinitionsCsv(this.csvFile);
-            }
-        } catch (Exception e) {
-            this.showAlert(Alert.AlertType.ERROR, "Error", e.getMessage());
+        this.dataManager.readBitmapFile(this.bmpFile);
+
+        if(this.csvFile == null) {
+            this.dataManager.setProvincesCollectionByBitmap();
+        } else {
+            this.dataManager.setProvincesCollectionByDefinitionsCsv(this.csvFile);
         }
 
         this.numberProvinces.setText("Number of provinces : " + this.dataManager.getNumberProvinces());
         this.dataManager.setAdjacenciesCollection();
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        File directory = directoryChooser.showDialog(null);
+        if(directory != null) {
+            File file = new File(directory, "adjacencies.json");
+            this.dataManager.writeAdjacenciesJson(file);
+        } else {
+            this.showAlert(Alert.AlertType.WARNING, "Warning", "No directory selected!");
+        }
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {

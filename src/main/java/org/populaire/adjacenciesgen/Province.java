@@ -18,7 +18,7 @@ public class Province {
 
     @Override
     public String toString() {
-        return "{ id : " + this.id + ", color " + this.color + " }";
+        return String.valueOf(this.id);
     }
 
     @Override

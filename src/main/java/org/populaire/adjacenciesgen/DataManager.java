@@ -1,5 +1,7 @@
 package org.populaire.adjacenciesgen;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -19,8 +21,22 @@ public class DataManager {
         this.adjacencies = new HashMap<>();
     }
 
-    public void readBitmapFile(File bmpFile) throws IOException {
-        this.provincesImage = ImageIO.read(bmpFile);
+    public int getNumberProvinces() {
+        return this.provinces.size();
+    }
+
+    public void clear() {
+        this.provincesImage = null;
+        this.provinces.clear();
+        this.adjacencies.clear();
+    }
+
+    public void readBitmapFile(File bmpFile) {
+        try {
+            this.provincesImage = ImageIO.read(bmpFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setProvincesCollectionByBitmap(){
@@ -38,7 +54,7 @@ public class DataManager {
         }
     }
 
-    public void setProvincesCollectionByDefinitionsCsv(File csvFile) throws IOException {
+    public void setProvincesCollectionByDefinitionsCsv(File csvFile) {
         List<List<String>> csvData = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine(); // Skip header
@@ -50,6 +66,8 @@ public class DataManager {
                 }
                 csvData.add(Arrays.asList(values));
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         for(List<String> data : csvData) {
@@ -74,16 +92,16 @@ public class DataManager {
                         this.adjacencies.put(province, new HashSet<>());
                     }
                     if (i > 0) {
-                        this.addAdjacencies(province, i - 1, j);
+                        this.addAdjacency(province, i - 1, j);
                     }
                     if (i < width - 1) {
-                        this.addAdjacencies(province, i + 1, j);
+                        this.addAdjacency(province, i + 1, j);
                     }
                     if (j > 0) {
-                        this.addAdjacencies(province, i, j - 1);
+                        this.addAdjacency(province, i, j - 1);
                     }
                     if (j < height - 1) {
-                        this.addAdjacencies(province, i, j + 1);
+                        this.addAdjacency(province, i, j + 1);
                     }
                 }
             }
@@ -92,11 +110,11 @@ public class DataManager {
         System.out.println("Adjacencies : " + this.adjacencies);
     }
 
-    public void addAdjacencies(Province ProvinceNode, int x, int y) {
+    public void addAdjacency(Province provinceNode, int x, int y) {
         Color colorBottom = this.getColorByPosition(x, y);
         Province provinceAdjacent = this.provinces.get(colorBottom);
-        if (provinceAdjacent != null) {
-            this.adjacencies.get(ProvinceNode).add(provinceAdjacent.getId());
+        if (provinceAdjacent != null && !provinceNode.equals(provinceAdjacent)) {
+            this.adjacencies.get(provinceNode).add(provinceAdjacent.getId());
         }
     }
 
@@ -108,7 +126,12 @@ public class DataManager {
         return new Color(r, g, b, 255);
     }
 
-    public int getNumberProvinces() {
-        return this.provinces.size();
+    public void writeAdjacenciesJson(File file) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            objectMapper.writeValue(file, this.adjacencies);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
