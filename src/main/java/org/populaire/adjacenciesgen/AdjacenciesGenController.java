@@ -10,27 +10,26 @@ import java.io.File;
 
 public class AdjacenciesGenController {
     @FXML
-    private Label welcomeText;
+    private Label numberProvinces;
+    @FXML
+    private Label numberProvincesByAdjacenciesFind;
     private DataManager dataManager;
+    private File bmpFile;
+    private File csvFile;
 
     public AdjacenciesGenController() {
         this.dataManager = new DataManager();
     }
 
     @FXML
-    protected void onUploadImageButtonClick() {
+    protected void onUploadBitmapButtonClick() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(("Image Files"), "*.bmp"));
 
-        Stage stage = (Stage) this.welcomeText.getScene().getWindow();
-        File file = fileChooser.showOpenDialog(stage);
+        File file = fileChooser.showOpenDialog(null);
 
         if (file != null) {
-            try {
-                this.dataManager.setProvincesCollection(file);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            this.bmpFile = file;
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
@@ -45,15 +44,10 @@ public class AdjacenciesGenController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(("Text Files"), "*.csv"));
 
-        Stage stage = (Stage) this.welcomeText.getScene().getWindow();
-        File file = fileChooser.showOpenDialog(stage);
+        File file = fileChooser.showOpenDialog(null);
 
         if (file != null) {
-            try {
-                this.dataManager.loadProvincesDefinitions(file);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            this.csvFile = file;
         } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Warning");
@@ -61,5 +55,29 @@ public class AdjacenciesGenController {
             alert.setContentText("No definitions file selected!");
             alert.showAndWait();
         }
+    }
+
+    @FXML
+    protected void onGenerateButtonClick() {
+        if(this.bmpFile == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText(null);
+            alert.setContentText("No image selected!");
+        }
+        try {
+            if(this.csvFile == null) {
+                this.dataManager.setProvincesCollectionByBitmap(this.bmpFile);
+            } else {
+                this.dataManager.setProvincesCollectionByDefinitionsCsv(this.csvFile);
+            }
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText(null);
+            alert.setContentText("An error occurred while processing the image!");
+        }
+
+        this.numberProvinces.setText("Number of provinces : " + this.dataManager.getNumberProvinces());
     }
 }

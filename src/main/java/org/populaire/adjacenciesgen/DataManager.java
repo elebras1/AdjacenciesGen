@@ -17,7 +17,7 @@ public class DataManager {
         this.provinces = new HashMap<>();
     }
 
-    public void setProvincesCollection(File bmpFile) throws IOException {
+    public void setProvincesCollectionByBitmap(File bmpFile) throws IOException {
         this.provincesImage = ImageIO.read(bmpFile);
         int width = provincesImage.getWidth();
         int height = provincesImage.getHeight();
@@ -36,12 +36,9 @@ public class DataManager {
                 }
             }
         }
-
-        System.out.println(this.provinces);
-        System.out.println("size : " + this.provinces.size());
     }
 
-    public void loadProvincesDefinitions(File csvFile) throws IOException {
+    public void setProvincesCollectionByDefinitionsCsv(File csvFile) throws IOException {
         List<List<String>> csvData = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
             br.readLine(); // Skip header
@@ -63,9 +60,10 @@ public class DataManager {
             Color color = new Color(r, g, b);
             this.provinces.put(color, new Province(id, color));
         }
+    }
 
-        System.out.println(this.provinces);
-        System.out.println("size : " + this.provinces.size());
+    public int getNumberProvinces() {
+        return this.provinces.size();
     }
 
 }
