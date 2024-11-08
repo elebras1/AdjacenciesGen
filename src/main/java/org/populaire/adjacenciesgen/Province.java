@@ -4,15 +4,15 @@ package org.populaire.adjacenciesgen;
 import java.awt.*;
 
 public class Province {
-    private int id;
+    private short id;
     private Color color;
 
-    public Province(int id, Color color) {
+    public Province(short id, Color color) {
         this.id = id;
         this.color = color;
     }
 
-    public int getId() {
+    public short getId() {
         return this.id;
     }
 

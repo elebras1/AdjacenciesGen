@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.Objects;
@@ -60,8 +59,9 @@ public class AdjacenciesGenController {
             return;
         }
         try {
+            this.dataManager.readBitmapFile(this.bmpFile);
             if(this.csvFile == null) {
-                this.dataManager.setProvincesCollectionByBitmap(this.bmpFile);
+                this.dataManager.setProvincesCollectionByBitmap();
             } else {
                 this.dataManager.setProvincesCollectionByDefinitionsCsv(this.csvFile);
             }
@@ -70,6 +70,7 @@ public class AdjacenciesGenController {
         }
 
         this.numberProvinces.setText("Number of provinces : " + this.dataManager.getNumberProvinces());
+        this.dataManager.setAdjacenciesCollection();
     }
 
     private void showAlert(Alert.AlertType type, String title, String message) {
