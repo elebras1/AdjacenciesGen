@@ -15,7 +15,7 @@
         <Button fx:id="helpButton" onAction="#onHelpButtonClick" styleClass="help-button">
             <graphic>
                 <ImageView>
-                    <Image url="@org/populaire/adjacenciesgen/images/help.png" />
+                    <Image url="@org/populaire/adjacenciesgen/images/logo.png" />
                 </ImageView>
             </graphic>
         </Button>

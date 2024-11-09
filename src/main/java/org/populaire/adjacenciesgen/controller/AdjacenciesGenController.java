@@ -10,6 +10,7 @@ import javafx.stage.FileChooser;
 import org.populaire.adjacenciesgen.service.DataManager;
 
 import java.io.File;
+import java.net.URL;
 import java.util.Objects;
 
 import static org.populaire.adjacenciesgen.AdjacenciesGenApplication.RESOURCE_PATH;
@@ -33,6 +34,9 @@ public class AdjacenciesGenController {
 
     @FXML
     public void initialize() {
+        URL resourceUrl = getClass().getResource("/org/populaire/adjacenciesgen/images/help.png");
+        System.out.println("Image URL: " + resourceUrl);
+
     }
 
     @FXML
@@ -88,9 +92,15 @@ public class AdjacenciesGenController {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         File directory = directoryChooser.showDialog(null);
         if(directory != null) {
-            File file = new File(directory, "adjacencies.json");
-            this.dataManager.writeAdjacenciesJson(file);
-            this.successAdjancencies.setText("Adjacencies file generated successfully!");
+            File adjacenciesFile = new File(directory, "adjacencies.json");
+            this.dataManager.writeAdjacenciesJson(adjacenciesFile);
+            if(this.csvFile == null) {
+                File definitionsFile = new File(directory, "definitions.csv");
+                this.dataManager.writeDefinitionsCsv(definitionsFile);
+                this.successAdjancencies.setText("Adjacencies and Definitions file generated successfully!");
+            } else {
+                this.successAdjancencies.setText("Adjacencies file generated successfully!");
+            }
         } else {
             this.showAlert(Alert.AlertType.WARNING, "Warning", "No directory selected!");
         }

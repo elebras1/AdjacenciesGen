@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class DataManager {
@@ -42,7 +39,7 @@ public class DataManager {
     public void setProvincesCollectionByBitmap(){
         int width = this.provincesImage.getWidth();
         int height = this.provincesImage.getHeight();
-        short idProvince = 0;
+        short idProvince = 1;
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < height; j++) {
                 Color color = this.getColorByPosition(i, j);
@@ -122,6 +119,20 @@ public class DataManager {
         int g = ((argb >> 8) & 0xFF);
         int b = ((argb) & 0xFF);
         return new Color(r, g, b, 255);
+    }
+
+    public void writeDefinitionsCsv(File file) {
+        try (PrintWriter printWriter = new PrintWriter(file)) {
+            List<Province> provinceSorted = this.provinces.values().stream()
+                    .sorted(Comparator.comparing(Province::getId))
+                    .toList();
+            for(Province province : provinceSorted) {
+                printWriter.println(province.getId() + ";" + province.getColor().getRed() + ";" + province.getColor().getGreen() + ";" + province.getColor().getBlue());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void writeAdjacenciesJson(File file) {

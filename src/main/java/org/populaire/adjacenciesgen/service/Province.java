@@ -16,6 +16,10 @@ public class Province {
         return this.id;
     }
 
+    public Color getColor() {
+        return this.color;
+    }
+
     @Override
     public String toString() {
         return String.valueOf(this.id);
