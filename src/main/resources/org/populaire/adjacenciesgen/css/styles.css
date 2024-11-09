@@ -1,0 +1,50 @@
+.root {
+    -fx-background-color: #2B2B2B;
+}
+
+.container {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+}
+
+.title-label {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.title-box {
+    -fx-alignment: center;
+    -fx-spacing: 20px;
+}
+
+.upload-button {
+    -fx-font-size: 15px;
+    -fx-background-color: #FFA500;
+    -fx-text-fill: white;
+    -fx-border-radius: 2.5px;
+    -fx-background-radius: 2.5px;
+}
+
+.submit-button {
+    -fx-font-size: 15px;
+    -fx-background-color: white;
+    -fx-text-fill: #2B2B2B;
+    -fx-border-radius: 2.5px;
+    -fx-background-radius: 2.5px;
+}
+
+.informations-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: white;
+}
+
+.success-label {
+    -fx-font-size: 15px;
+    -fx-text-fill: #00FF00;
+}
+
+.help-button {
+    -fx-fit-height: 20px;
+    -fx-fit-width: 20px;
+}

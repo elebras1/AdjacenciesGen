@@ -1,4 +1,4 @@
-package org.populaire.adjacenciesgen;
+package org.populaire.adjacenciesgen.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -105,9 +105,7 @@ public class DataManager {
                     }
                 }
             }
-            System.out.println("Province calculated : " + this.adjacencies.size() + " / " + this.provinces.size());
         }
-        System.out.println("Adjacencies : " + this.adjacencies);
     }
 
     public void addAdjacency(Province provinceNode, int x, int y) {

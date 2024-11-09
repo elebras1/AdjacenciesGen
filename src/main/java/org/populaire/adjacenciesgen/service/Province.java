@@ -1,4 +1,4 @@
-package org.populaire.adjacenciesgen;
+package org.populaire.adjacenciesgen.service;
 
 
 import java.awt.*;

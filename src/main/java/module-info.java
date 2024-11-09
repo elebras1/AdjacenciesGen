@@ -7,4 +7,8 @@ module org.populaire.adjacenciesgen {
 
     opens org.populaire.adjacenciesgen to javafx.fxml;
     exports org.populaire.adjacenciesgen;
+    exports org.populaire.adjacenciesgen.service;
+    opens org.populaire.adjacenciesgen.service to javafx.fxml;
+    exports org.populaire.adjacenciesgen.controller;
+    opens org.populaire.adjacenciesgen.controller to javafx.fxml;
 }

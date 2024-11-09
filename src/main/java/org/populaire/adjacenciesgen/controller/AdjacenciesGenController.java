@@ -1,17 +1,26 @@
-package org.populaire.adjacenciesgen;
+package org.populaire.adjacenciesgen.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import org.populaire.adjacenciesgen.service.DataManager;
 
 import java.io.File;
 import java.util.Objects;
 
+import static org.populaire.adjacenciesgen.AdjacenciesGenApplication.RESOURCE_PATH;
+
 public class AdjacenciesGenController {
     @FXML
     private Label numberProvinces;
+    @FXML
+    private Label successAdjancencies;
+    @FXML
+    private ImageView helpImageView;
     private DataManager dataManager;
     private File bmpFile;
     private File csvFile;
@@ -20,12 +29,20 @@ public class AdjacenciesGenController {
         this.dataManager = new DataManager();
         this.bmpFile = null;
         this.csvFile = null;
+    }
+
+    @FXML
+    public void initialize() {
+    }
+
+    @FXML
+    protected void onHelpButtonClick() {
 
     }
 
     @FXML
     protected void onUploadBitmapButtonClick() {
-        this.dataManager.clear();
+        this.clear();
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter(("Image Files"), "*.bmp"));
 
@@ -55,7 +72,7 @@ public class AdjacenciesGenController {
     @FXML
     protected void onGenerateButtonClick() {
         if(this.bmpFile == null) {
-            this.showAlert(Alert.AlertType.WARNING, "Warning", "No image selected!");
+            this.showAlert(Alert.AlertType.WARNING, "Warning", "The bitmap file containing the provinces is mandatory!");
             return;
         }
         this.dataManager.readBitmapFile(this.bmpFile);
@@ -73,6 +90,7 @@ public class AdjacenciesGenController {
         if(directory != null) {
             File file = new File(directory, "adjacencies.json");
             this.dataManager.writeAdjacenciesJson(file);
+            this.successAdjancencies.setText("Adjacencies file generated successfully!");
         } else {
             this.showAlert(Alert.AlertType.WARNING, "Warning", "No directory selected!");
         }
@@ -80,11 +98,18 @@ public class AdjacenciesGenController {
 
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/alert.css")).toExternalForm());
+        alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass().getResource(RESOURCE_PATH + "css/alert.css")).toExternalForm());
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void clear() {
+        this.dataManager.clear();
+        this.bmpFile = null;
+        this.csvFile = null;
+        this.numberProvinces.setText("");
     }
 
 }

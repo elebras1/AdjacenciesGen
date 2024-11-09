@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<?import javafx.scene.layout.HBox?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox styleClass="container" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.populaire.adjacenciesgen.controller.AdjacenciesGenController">
+    <HBox styleClass="title-box">
+        <Label text="AdjacenciesGen" styleClass="title-label"/>
+        <Button fx:id="helpButton" onAction="#onHelpButtonClick" styleClass="help-button">
+            <graphic>
+                <ImageView>
+                    <Image url="@org/populaire/adjacenciesgen/images/help.png" />
+                </ImageView>
+            </graphic>
+        </Button>
+
+
+    </HBox>
+
+    <Button text="Upload provinces.bmp" onAction="#onUploadBitmapButtonClick" styleClass="upload-button"/>
+
+    <Button text="Upload definitions.csv" onAction="#onUploadDefinitionsButtonClick" styleClass="upload-button"/>
+
+    <Button text="Generate adjacencies" onAction="#onGenerateButtonClick" styleClass="submit-button"/>
+
+    <Label fx:id="numberProvinces" styleClass="informations-label"/>
+    <Label fx:id="successAdjancencies" styleClass="success-label"/>
+</VBox>
