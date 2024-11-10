@@ -2,11 +2,11 @@ package org.populaire.adjacenciesgen.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import org.populaire.adjacenciesgen.navigation.SceneManager;
 import org.populaire.adjacenciesgen.service.DataManager;
 
 import java.io.File;
@@ -15,16 +15,15 @@ import java.util.Objects;
 
 import static org.populaire.adjacenciesgen.AdjacenciesGenApplication.RESOURCE_PATH;
 
-public class AdjacenciesGenController {
+public class AdjacenciesGenController implements Controller {
     @FXML
     private Label numberProvinces;
     @FXML
     private Label successAdjancencies;
-    @FXML
-    private ImageView helpImageView;
     private DataManager dataManager;
     private File bmpFile;
     private File csvFile;
+    private SceneManager sceneManager;
 
     public AdjacenciesGenController() {
         this.dataManager = new DataManager();
@@ -32,16 +31,18 @@ public class AdjacenciesGenController {
         this.csvFile = null;
     }
 
-    @FXML
-    public void initialize() {
-        URL resourceUrl = getClass().getResource("/org/populaire/adjacenciesgen/images/help.png");
-        System.out.println("Image URL: " + resourceUrl);
-
+    @Override
+    public void setSceneManager(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
     }
 
     @FXML
     protected void onHelpButtonClick() {
-
+        try {
+            this.sceneManager.showHelpScene();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -121,5 +122,4 @@ public class AdjacenciesGenController {
         this.csvFile = null;
         this.numberProvinces.setText("");
     }
-
 }
