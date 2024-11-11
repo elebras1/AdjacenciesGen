@@ -5,6 +5,7 @@
 .container {
     -fx-alignment: center;
     -fx-spacing: 20px;
+    -fx-fill-width: true;
 }
 
 .title-label {
@@ -15,7 +16,11 @@
 
 .title-box {
     -fx-alignment: center;
-    -fx-spacing: 20px;
+    -fx-spacing: 10px;
+}
+
+.button:hover {
+    -fx-cursor: hand;
 }
 
 .upload-button {
@@ -45,6 +50,29 @@
 }
 
 .help-button {
-    -fx-fit-height: 20px;
-    -fx-fit-width: 20px;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-background-color: transparent;
 }
+
+.help-container {
+    -fx-alignment: center;
+    -fx-spacing: 10px;
+    -fx-padding: 20px 0;
+}
+
+.informations-text {
+    -fx-font-size: 15px;
+    -fx-fill: white;
+}
+
+ScrollPane {
+    -fx-background-color: #2B2B2B;
+    -fx-border-color: transparent;
+}
+
+ScrollPane .viewport {
+    -fx-background-color: #2B2B2B;
+}
+

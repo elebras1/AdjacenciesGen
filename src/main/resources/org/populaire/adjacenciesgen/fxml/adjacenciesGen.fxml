@@ -3,20 +3,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
-
 <?import javafx.scene.layout.HBox?>
-
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+
 <VBox styleClass="container" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.populaire.adjacenciesgen.controller.AdjacenciesGenController">
     <HBox styleClass="title-box">
         <Label text="AdjacenciesGen" styleClass="title-label"/>
-        <Button fx:id="helpButton" onAction="#onHelpButtonClick" styleClass="help-button">
+        <Button onAction="#onHelpButtonClick" styleClass="help-button">
             <graphic>
-                <ImageView>
-                    <Image url="@org/populaire/adjacenciesgen/images/logo.png" />
-                </ImageView>
+                <ImageView fx:id="imageViewHelp"/>
             </graphic>
         </Button>
 

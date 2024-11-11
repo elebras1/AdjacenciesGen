@@ -3,6 +3,7 @@ package org.populaire.adjacenciesgen.controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -10,7 +11,6 @@ import org.populaire.adjacenciesgen.navigation.SceneManager;
 import org.populaire.adjacenciesgen.service.DataManager;
 
 import java.io.File;
-import java.net.URL;
 import java.util.Objects;
 
 import static org.populaire.adjacenciesgen.AdjacenciesGenApplication.RESOURCE_PATH;
@@ -20,6 +20,8 @@ public class AdjacenciesGenController implements Controller {
     private Label numberProvinces;
     @FXML
     private Label successAdjancencies;
+    @FXML
+    private ImageView imageViewHelp;
     private DataManager dataManager;
     private File bmpFile;
     private File csvFile;
@@ -34,6 +36,14 @@ public class AdjacenciesGenController implements Controller {
     @Override
     public void setSceneManager(SceneManager sceneManager) {
         this.sceneManager = sceneManager;
+    }
+
+    @FXML
+    protected void initialize() {
+        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(RESOURCE_PATH + "images/help.png")));
+        this.imageViewHelp.setImage(image);
+        this.imageViewHelp.setFitWidth(20);
+        this.imageViewHelp.setFitHeight(20);
     }
 
     @FXML

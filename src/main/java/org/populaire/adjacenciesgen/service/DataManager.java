@@ -10,8 +10,8 @@ import java.util.*;
 
 public class DataManager {
     private BufferedImage provincesImage;
-    private Map<Color, Province> provinces;
-    private Map<Province, Set<Short>> adjacencies;
+    private final Map<Color, Province> provinces;
+    private final Map<Province, Set<Integer>> adjacencies;
 
     public DataManager() {
         this.provinces = new HashMap<>();
@@ -126,6 +126,7 @@ public class DataManager {
             List<Province> provinceSorted = this.provinces.values().stream()
                     .sorted(Comparator.comparing(Province::getId))
                     .toList();
+            printWriter.println("id;red;green;blue");
             for(Province province : provinceSorted) {
                 printWriter.println(province.getId() + ";" + province.getColor().getRed() + ";" + province.getColor().getGreen() + ";" + province.getColor().getBlue());
             }

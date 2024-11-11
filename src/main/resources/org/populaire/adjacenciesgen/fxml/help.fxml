@@ -1,13 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Button?>
-<VBox styleClass="container" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="org.populaire.adjacenciesgen.controller.HelpController">
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.ScrollPane?>
+
+<VBox styleClass="container" xmlns:fx="http://javafx.com/fxml" fx:controller="org.populaire.adjacenciesgen.controller.HelpController">
 
     <Label text="Help" styleClass="title-label"/>
+    <ScrollPane fitToWidth="true">
+        <VBox styleClass="help-container">
+            <VBox styleClass="help-container">
+                <Label text="1. Upload provinces.bmp" styleClass="informations-label"/>
+                <Text wrappingWidth="350" styleClass="informations-text"
+                      text="This step requires that you upload the provinces bitmap file, each province is represented by a unique color." />
+                <ImageView fx:id="imageViewBmp"/>
+            </VBox>
 
-    <Button text="Return to AdjacenciesGen" onAction="#onReturnButtonClick" styleClass="submit-button"/>
+            <VBox styleClass="help-container">
+                <Label text="2. Upload definitions.csv" styleClass="informations-label"/>
+                <Text wrappingWidth="350" styleClass="informations-text"
+                      text="This step is optional, you can upload the csv definitions file, which allows you to relate the color of a province with an id." />
+                <ImageView fx:id="imageViewDefinitions"/>
+            </VBox>
+
+            <VBox styleClass="help-container">
+                <Label text="3. Generate adjacencies" styleClass="informations-label"/>
+                <Text wrappingWidth="350" styleClass="informations-text"
+                      text="After the files are uploaded, you can generate the adjacencies by clicking the button below." />
+                <ImageView fx:id="imageViewAdjacencies"/>
+            </VBox>
+
+            <Button text="Return to AdjacenciesGen" onAction="#onReturnButtonClick" styleClass="submit-button"/>
+        </VBox>
+    </ScrollPane>
 </VBox>
