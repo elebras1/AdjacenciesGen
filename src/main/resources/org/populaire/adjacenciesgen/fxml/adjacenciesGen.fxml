@@ -8,18 +8,23 @@
 
 <VBox styleClass="container" xmlns:fx="http://javafx.com/fxml"
       fx:controller="org.populaire.adjacenciesgen.controller.AdjacenciesGenController">
-    <HBox styleClass="title-box">
+    <HBox styleClass="default-hbox">
         <Label text="AdjacenciesGen" styleClass="title-label"/>
         <Button onAction="#onHelpButtonClick" styleClass="help-button">
             <graphic>
                 <ImageView fx:id="imageViewHelp"/>
             </graphic>
         </Button>
-
-
     </HBox>
 
-    <Button text="Upload provinces.bmp" onAction="#onUploadBitmapButtonClick" styleClass="upload-button"/>
+    <HBox styleClass="default-hbox">
+        <Button text="Upload provinces.bmp" onAction="#onUploadBitmapButtonClick" styleClass="upload-button"/>
+        <Button onAction="#onEditBitmapButtonClick" styleClass="help-button">
+            <graphic>
+                <ImageView fx:id="imageViewEditBitmap"/>
+            </graphic>
+        </Button>
+    </HBox>
 
     <Button text="Upload definitions.csv" onAction="#onUploadDefinitionsButtonClick" styleClass="upload-button"/>
 

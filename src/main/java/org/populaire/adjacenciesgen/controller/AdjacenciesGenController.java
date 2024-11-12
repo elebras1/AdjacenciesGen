@@ -22,6 +22,8 @@ public class AdjacenciesGenController implements Controller {
     private Label successAdjancencies;
     @FXML
     private ImageView imageViewHelp;
+    @FXML
+    private ImageView imageViewEditBitmap;
     private DataManager dataManager;
     private File bmpFile;
     private File csvFile;
@@ -40,10 +42,15 @@ public class AdjacenciesGenController implements Controller {
 
     @FXML
     protected void initialize() {
-        Image image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(RESOURCE_PATH + "images/help.png")));
-        this.imageViewHelp.setImage(image);
+        Image imageHelp = new Image(Objects.requireNonNull(getClass().getResourceAsStream(RESOURCE_PATH + "images/help.png")));
+        this.imageViewHelp.setImage(imageHelp);
         this.imageViewHelp.setFitWidth(20);
         this.imageViewHelp.setFitHeight(20);
+
+        Image imageEditBitmap = new Image(Objects.requireNonNull(getClass().getResourceAsStream(RESOURCE_PATH + "images/edit.png")));
+        this.imageViewEditBitmap.setImage(imageEditBitmap);
+        this.imageViewEditBitmap.setFitWidth(20);
+        this.imageViewEditBitmap.setFitHeight(20);
     }
 
     @FXML
@@ -114,6 +121,19 @@ public class AdjacenciesGenController implements Controller {
             }
         } else {
             this.showAlert(Alert.AlertType.WARNING, "Warning", "No directory selected!");
+        }
+    }
+
+    @FXML
+    protected void onEditBitmapButtonClick() {
+        if(this.bmpFile != null) {
+            try {
+                this.sceneManager.showBitmapEditorScene(this.bmpFile);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            this.showAlert(Alert.AlertType.WARNING, "Warning", "No image selected!");
         }
     }
 

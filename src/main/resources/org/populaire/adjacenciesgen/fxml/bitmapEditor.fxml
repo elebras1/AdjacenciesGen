@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox styleClass="container" xmlns:fx="http://javafx.com/fxml" fx:controller="org.populaire.adjacenciesgen.controller.BitmapEditorController">
+    <Canvas fx:id="canvas"/>
+</VBox>

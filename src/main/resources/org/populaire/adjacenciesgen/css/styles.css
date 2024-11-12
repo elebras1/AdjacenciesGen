@@ -14,7 +14,7 @@
     -fx-text-fill: white;
 }
 
-.title-box {
+.default-hbox {
     -fx-alignment: center;
     -fx-spacing: 10px;
 }
